@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { footerLinks, socialLinks } from "./Links";
-
-
+import { SiteIcon } from "@/components/icons/sharedIcon";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,11 +16,9 @@ export function Footer() {
           <div className="col-span-6 md:col-span-4 space-y-6">
             <Link
               href="/"
-              className="flex items-center gap-2.5 w-fit cursor-pointer"
+              className="inline-flex items-center gap-2.5 cursor-pointer"
             >
-              <span className="text-xl font-bold tracking-tight">
-                <span className="gradient-text">Rent</span>Nest
-              </span>
+              <SiteIcon className="h-4 w-auto" />
             </Link>
 
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
@@ -32,7 +29,10 @@ export function Footer() {
 
           {/* Links Section */}
           {footerLinks.map((section) => (
-            <div key={section.title} className="col-span-4 md:col-span-2 space-y-4">
+            <div
+              key={section.title}
+              className="col-span-4 md:col-span-2 space-y-4"
+            >
               <h4 className="text-sm font-semibold text-foreground">
                 {section.title}
               </h4>
