@@ -63,9 +63,9 @@ export const loginAction = async (redirectTo: string, prevState: AuthState, form
       redirect(redirectTo);
     }
 
-    if (decodedToken.role === "TENANT") redirect("/dashboard/tenant");
-    if (decodedToken.role === "LANDLORD") redirect("/dashboard/landlord");
-    if (decodedToken.role === "ADMIN") redirect("/dashboard/admin");
+    if (decodedToken.role === "TENANT") redirect("/tenant/dashboard");
+    if (decodedToken.role === "LANDLORD") redirect("/landlord/dashboard");
+    if (decodedToken.role === "ADMIN") redirect("/admin/dashboard");
     redirect("/");
   }
 
