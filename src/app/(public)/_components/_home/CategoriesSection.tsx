@@ -63,7 +63,7 @@ const HomepageCategoriesSection = ({ categories }: CategoriesSectionProps) => {
               transition={{ delay: i * 0.05, duration: 0.4 }}
             >
               <Link
-                href={`/categories?cat=${cat.id}`}
+                href={"/categories"}
                 className="group relative block h-full p-8 rounded-2xl border border-slate-200 bg-white hover:bg-foreground hover:border-foreground transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-xl"
               >
                 <div className="flex justify-between items-start mb-6">

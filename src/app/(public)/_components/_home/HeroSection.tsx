@@ -118,31 +118,14 @@ const HomepageHeroSection = () => {
             </Button>
           </motion.form>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="rounded-full text-base font-medium px-8 shadow-lg hover:shadow-xl transition-shadow" onClick={() => router.push("/properties")}>
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="rounded-full text-base font-medium px-8 py-8 shadow-lg hover:shadow-xl transition-shadow" onClick={() => router.push("/properties")}>
               Browse Properties <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
-            <Button variant="outline" size="lg" className="rounded-full text-base font-medium px-8 bg-white/50 backdrop-blur-md border-slate-200 hover:bg-white" onClick={() => router.push("/landlord/dashboard")}>
+            <Button variant="outline" size="lg" className="rounded-full text-base font-medium px-8 py-8 bg-white/50 backdrop-blur-md border-slate-200 hover:bg-white" onClick={() => router.push("/landlord/dashboard")}>
               <Building2 className="h-4 w-4 mr-1" /> List Your Property
             </Button>
           </div>
-
-          {/* Quick Stats (Realistic Numbers) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
-            className="mt-20 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto"
-          >
-            {[
-              { value: "50+", label: "Active Listings" },
-              { value: "5+", label: "Verified Landlords" },
-              { value: "8+", label: "Happy Tenants" },
-            ].map((stat) => (
-              <div key={stat.label} className="group relative bg-white/50 backdrop-blur-md border border-white/60 rounded-2xl p-4 sm:p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
-                <p className="text-2xl sm:text-3xl font-bold gradient-text">{stat.value}</p>
-                <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </div>
     </section>
