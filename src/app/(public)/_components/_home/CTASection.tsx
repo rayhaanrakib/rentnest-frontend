@@ -51,7 +51,7 @@ const HomepageCTASection = () => {
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
-                  href="/auth/login"
+                  href="/login"
                   className="group inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-white text-foreground text-sm font-medium hover:bg-white/90 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
                 >
                   Login
@@ -59,7 +59,7 @@ const HomepageCTASection = () => {
                 </Link>
 
                 <Link
-                  href="/auth/register"
+                  href="/register"
                   className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-transparent text-background text-sm font-medium border border-background/20 hover:bg-background/5 hover:border-background/40 transition-all"
                 >
                   Create Account
