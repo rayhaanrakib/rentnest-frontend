@@ -24,8 +24,17 @@
     ],
     "paths": {
       "@/*": [
-        "./src/*"
-      ]
+        "./src/*",
+      ],
+      "@public/*": [
+        "./src/app/(public)/*",
+      ],
+      "@dashboard/*": [
+        "./src/app/(dashboard)/*",
+      ],
+      "@auth/*": [
+        "./src/app/(auth)/*",
+      ],
     }
   },
   "include": [

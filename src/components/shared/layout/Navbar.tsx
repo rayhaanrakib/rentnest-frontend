@@ -10,7 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navLinks, authLinks } from "./Links";
 import { SiteIcon } from "@/components/icons/sharedIcon";
-import { getCurrentUser, logoutAction } from "@/app/(auth)/_actions/authActions";
+import { getCurrentUser, logoutAction } from "@auth/_actions/authActions";
 import { toast } from "sonner";
 
 export function Navbar() {

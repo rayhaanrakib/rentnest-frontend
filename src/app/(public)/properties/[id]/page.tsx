@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getPropertyDetail } from "../../_actions/getData";
-import PropertyActions from "../../_components/_properties/PropertyActions";
+import { getPropertyDetail } from "@public/_actions/getData";
+import PropertyActions from "@public/_components/_properties/PropertyActions";
 
 const PropertyDetailPage = async ({
   params,

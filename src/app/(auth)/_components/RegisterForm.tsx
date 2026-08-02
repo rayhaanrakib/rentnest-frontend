@@ -17,7 +17,7 @@ import {
 import { GoogleIcon, GithubIcon } from "@/components/icons/sharedIcon";
 import { authLinks } from "@/components/shared/layout/Links";
 import { toast } from "sonner";
-import { registerAction } from "../_actions/authActions";
+import { registerAction } from "@auth/_actions/authActions";
 
 export function RegisterForm() {
   const [state, action, pending] = useActionState(registerAction, {

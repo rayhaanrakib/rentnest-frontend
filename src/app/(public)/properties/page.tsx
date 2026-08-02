@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import PropertyFilters from "../_components/_properties/PropertyFilters";
-import PropertySkeleton from "../_components/_properties/PropertySkeleton";
-import PropertyList from "../_components/_properties/PropertyList";
-import { getCategories } from "../_actions/getData";
+import PropertyFilters from "@public/_components/_properties/PropertyFilters";
+import PropertySkeleton from "@public/_components/_properties/PropertySkeleton";
+import PropertyList from "@public/_components/_properties/PropertyList";
+import { getCategories } from "@public/_actions/getData";
 import { ICategory } from "@/types";
 
 function PropertySkeletonGrid() {
@@ -21,7 +21,7 @@ const PropertyPage = async ({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const query = await searchParams;
-  const categories: ICategory[] = await getCategories();  
+  const categories: ICategory[] = await getCategories();
 
   if (!categories) {
     return null;

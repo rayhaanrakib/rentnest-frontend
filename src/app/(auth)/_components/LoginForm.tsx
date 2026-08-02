@@ -6,7 +6,7 @@ import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { GoogleIcon, GithubIcon } from "@/components/icons/sharedIcon";
 import { authLinks } from "@/components/shared/layout/Links";
 import { toast } from "sonner";
-import { loginAction } from "../_actions/authActions";
+import { loginAction } from "@auth/_actions/authActions";
 import { useSearchParams } from "next/navigation";
 
 const LoginForm = () => {

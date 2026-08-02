@@ -1,13 +1,13 @@
-import HomepageCategoriesSection from "./_components/_home/CategoriesSection";
-import HomepageFeaturedPropertiesSection from "./_components/_home/FeaturedPropertiesSection";
-import HomepageHeroSection from "./_components/_home/HeroSection";
-import HomepagePopularLocationsSection from "./_components/_home/PopularLocationsSection";
-import HomepageWhyChooseUsSection from "./_components/_home/WhyChooseUsSection";
-import HomepageBecomeLandlordSection from "./_components/_home/BecomeLandlordSection";
-import HomepageReviewsSection from "./_components/_home/ReviewsSection";
-import HomepageCTASection from "./_components/_home/CTASection";
+import HomepageCategoriesSection from "@public/_components/_home/CategoriesSection";
+import HomepageFeaturedPropertiesSection from "@public/_components/_home/FeaturedPropertiesSection";
+import HomepageHeroSection from "@public/_components/_home/HeroSection";
+import HomepagePopularLocationsSection from "@public/_components/_home/PopularLocationsSection";
+import HomepageWhyChooseUsSection from "@public/_components/_home/WhyChooseUsSection";
+import HomepageBecomeLandlordSection from "@public/_components/_home/BecomeLandlordSection";
+import HomepageReviewsSection from "@public/_components/_home/ReviewsSection";
+import HomepageCTASection from "@public/_components/_home/CTASection";
 // get data
-import { getAllProperties, getCategories, getProperties } from "./_actions/getData";
+import { getAllProperties, getCategories, getProperties } from "@public/_actions/getData";
 
 
 export default async function Home() {

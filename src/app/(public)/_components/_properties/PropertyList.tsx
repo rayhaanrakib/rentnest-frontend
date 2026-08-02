@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getProperties } from "../../_actions/getData";
+import { getProperties } from "@public/_actions/getData";
 
 import PropertyCard from "./PropertyCard";
 
