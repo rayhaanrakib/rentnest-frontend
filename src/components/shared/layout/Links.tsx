@@ -65,40 +65,45 @@ export const socialLinks = [
 const TENANT_SIDEBAR_ITEMS: IDashboardNavItem[] = [
   {
     href: "/tenant/dashboard",
-    label: "Overview",
+    label: "Profile",
     icon: LayoutDashboard,
     exact: true,
   },
   {
     href: "/tenant/dashboard/requests",
-    label: "My Requests",
+    label: "Requests",
     icon: FileText,
   },
 ];
 const LANDLORD_SIDEBAR_ITEMS: IDashboardNavItem[] = [
   {
     href: "/landlord/dashboard",
-    label: "Overview",
+    label: "Profile",
     icon: LayoutDashboard,
     exact: true,
   },
   {
     href: "/landlord/dashboard/properties",
-    label: "My Properties",
+    label: "Properties",
     icon: FileText,
   },
   {
     href: "/landlord/dashboard/rentals",
-    label: "My Rentals",
+    label: "Rentals",
     icon: CalendarDays,
   }
 ];
 const ADMIN_SIDEBAR_ITEMS: IDashboardNavItem[] = [
   {
     href: "/admin/dashboard",
-    label: "Dashboard",
+    label: "Profile",
     icon: LayoutDashboard,
     exact: true,
+  },
+  {
+    href: "/admin/dashboard/stats",
+    label: "Stats",
+    icon: FileText,
   },
   {
     label: "Users",

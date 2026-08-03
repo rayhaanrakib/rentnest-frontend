@@ -9,7 +9,7 @@ interface CreatePropertyButtonProps {
   categories: ICategorySelect[];
 }
 
-export default function CreatePropertyButton({ categories }: CreatePropertyButtonProps) {
+const CreatePropertyButton = ({ categories }: CreatePropertyButtonProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -34,3 +34,4 @@ export default function CreatePropertyButton({ categories }: CreatePropertyButto
     </>
   );
 }
+export default CreatePropertyButton;

@@ -9,7 +9,7 @@ interface PropertyFiltersProps {
   categories: ICategory[];
 }
 
-export default function PropertyFilters({ categories }: PropertyFiltersProps) {
+const PropertyFilters = ({ categories }: PropertyFiltersProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -91,3 +91,4 @@ export default function PropertyFilters({ categories }: PropertyFiltersProps) {
     </div>
   );
 }
+export default PropertyFilters;

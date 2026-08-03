@@ -26,9 +26,9 @@ const STATUS_OPTIONS = [
   { value: "UNAVAILABLE", label: "Unavailable" },
 ];
 
-export default function PropertyModal({
+const PropertyModal = ({
   open, onClose, mode, initialData, categories = [], propertyId,
-}: PropertyModalProps) {
+}: PropertyModalProps) => {
   const [images, setImages] = useState<string[]>(initialData?.images ?? []);
   const [newImage, setNewImage] = useState("");
 
@@ -468,3 +468,4 @@ function Section({
     </div>
   );
 }
+export default PropertyModal;

@@ -75,7 +75,7 @@ const formatCurrency = (amount: number) =>
     maximumFractionDigits: 0,
   }).format(amount);
 
-export default function RentalDetailsModal({
+const RentalDetailsModal = ({
   open,
   onClose,
   requestId,
@@ -83,7 +83,7 @@ export default function RentalDetailsModal({
   open: boolean;
   onClose: () => void;
   requestId: string;
-}) {
+}) => {
   const [rental, setRental] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState(false);
@@ -374,3 +374,4 @@ export default function RentalDetailsModal({
     </AnimatePresence>
   );
 }
+export default RentalDetailsModal;

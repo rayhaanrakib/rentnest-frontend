@@ -42,6 +42,10 @@ export interface ICategorySelect {
   id: string;
   name: string;
 }
+export interface ICreateCategory {
+  name: string;
+  description?: string;
+}
 
 // ============ Property Types ============
 export type IPropertyStatus = "AVAILABLE" | "UNAVAILABLE" | "RENTED";

@@ -11,12 +11,12 @@ interface DeleteConfirmModalProps {
   propertyTitle: string;
 }
 
-export default function DeleteConfirmModal({
+const DeleteConfirmModal = ({
   open,
   onClose,
   onConfirm,
   propertyTitle,
-}: DeleteConfirmModalProps) {
+}: DeleteConfirmModalProps) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
@@ -102,3 +102,4 @@ export default function DeleteConfirmModal({
     </AnimatePresence>
   );
 }
+export default DeleteConfirmModal;

@@ -11,11 +11,11 @@ import {
 } from "lucide-react";
 import { redirect } from "next/navigation";
 
-export default function PaymentButton({
+const PaymentButton = ({
   rentalRequestId,
 }: {
   rentalRequestId: string;
-}) {
+}) => {
   const [state, action, pending] = useActionState(makePayment, null);
 
   useEffect(() => {
@@ -88,3 +88,4 @@ export default function PaymentButton({
     </form>
   );
 }
+export default PaymentButton;

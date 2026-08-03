@@ -14,7 +14,7 @@ interface PropertyActionsProps {
   categories: ICategorySelect[];
 }
 
-export default function PropertyActions({ property, categories }: PropertyActionsProps) {
+const PropertyActions = ({ property, categories }: PropertyActionsProps) => {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
@@ -102,3 +102,4 @@ export default function PropertyActions({ property, categories }: PropertyAction
     </>
   );
 }
+export default PropertyActions;

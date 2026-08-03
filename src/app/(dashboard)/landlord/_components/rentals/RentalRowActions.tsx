@@ -4,7 +4,7 @@ import { Eye } from "lucide-react";
 import { useState } from "react";
 import RentalDetailsModal from "./RentalDetailsModal";
 
-export default function RentalRowActions({ rentalId }: { rentalId: string }) {
+const RentalRowActions = ({ rentalId }: { rentalId: string }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -17,7 +17,7 @@ export default function RentalRowActions({ rentalId }: { rentalId: string }) {
       >
         <Eye className="h-3.5 w-3.5" />
       </button>
-      
+
       <RentalDetailsModal
         open={open}
         onClose={() => setOpen(false)}
@@ -26,3 +26,4 @@ export default function RentalRowActions({ rentalId }: { rentalId: string }) {
     </>
   );
 }
+export default RentalRowActions;
