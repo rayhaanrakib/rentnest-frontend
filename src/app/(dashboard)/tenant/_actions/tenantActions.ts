@@ -97,3 +97,17 @@ export const postTenantRentalRequest = async (
     };
   }
 };
+
+export const getPayments = async () => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
+  if (!accessToken) return null;
+
+  const res = await fetch(`${process.env.BACKEND_API_URL}/payments`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: "no-cache",
+  });
+  const result = await res.json();
+  return result.data;
+};

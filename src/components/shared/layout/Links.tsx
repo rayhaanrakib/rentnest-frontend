@@ -74,6 +74,11 @@ const TENANT_SIDEBAR_ITEMS: IDashboardNavItem[] = [
     label: "Requests",
     icon: FileText,
   },
+  {
+    href: "/tenant/dashboard/payments",
+    label: "Payments",
+    icon: FileText,
+  },
 ];
 const LANDLORD_SIDEBAR_ITEMS: IDashboardNavItem[] = [
   {
