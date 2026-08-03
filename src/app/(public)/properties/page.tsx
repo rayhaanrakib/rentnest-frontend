@@ -14,6 +14,28 @@ function PropertySkeletonGrid() {
     </div>
   );
 }
+const PropertyFiltersSkeleton = () => {
+  return (
+    <div className="mb-8 rounded-3xl border border-slate-100 bg-white/90 p-2 shadow-sm animate-pulse">
+      <div className="flex flex-col gap-2 md:flex-row">
+        {/* Search */}
+        <div className="flex-1 border-b border-slate-100 px-4 py-3 md:border-b-0 md:border-r">
+          <div className="h-5 w-full max-w-[220px] rounded bg-slate-100" />
+        </div>
+
+        {/* Category */}
+        <div className="flex-1 border-b border-slate-100 px-4 py-3 md:border-b-0 md:border-r">
+          <div className="h-5 w-full max-w-[180px] rounded bg-slate-100" />
+        </div>
+
+        {/* Status */}
+        <div className="flex-1 px-4 py-3">
+          <div className="h-5 w-full max-w-[160px] rounded bg-slate-100" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const PropertyPage = async ({
   searchParams,
@@ -48,7 +70,9 @@ const PropertyPage = async ({
         </div>
 
         {/* Filters */}
-        <PropertyFilters categories={categories} />
+        <Suspense fallback={<PropertyFiltersSkeleton />}>
+          <PropertyFilters categories={categories} />
+        </Suspense>
 
         {/* Property List */}
         <Suspense

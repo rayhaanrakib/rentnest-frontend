@@ -1,7 +1,7 @@
+import { Suspense } from "react";
 import { getPropertyDetail } from "@public/_actions/getData";
 import PropertyActions from "@public/_components/_properties/PropertyActions";
 import PropertyRentalRequestModal from "@public/_components/_properties/PropertyRentalRequestModal";
-
 import {
   ArrowLeft,
   Check,
@@ -13,12 +13,95 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const PropertyDetailPage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
-  const { id } = await params;
+// Skeleton
+const PropertyDetailSkeleton = () => {
+  return (
+    <div className="bg-white min-h-screen pt-32 pb-32 animate-pulse">
+      <div className="container mx-auto px-4 md:px-8">
+        {/* Back + Actions */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="h-5 w-36 rounded bg-slate-200" />
+          <div className="h-9 w-9 rounded-xl bg-slate-100" />
+        </div>
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+          <div className="max-w-3xl space-y-4">
+            <div className="flex gap-2">
+              <div className="h-6 w-24 rounded-full bg-slate-200" />
+              <div className="h-6 w-20 rounded-full bg-slate-100" />
+            </div>
+            <div className="h-14 w-full max-w-lg rounded-xl bg-slate-200" />
+            <div className="h-5 w-72 rounded bg-slate-100" />
+          </div>
+          <div className="flex gap-8">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="space-y-1">
+                <div className="h-7 w-8 rounded bg-slate-200" />
+                <div className="h-3 w-16 rounded bg-slate-100" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Image */}
+        <div className="h-[450px] md:h-[600px] rounded-3xl bg-slate-100 mb-16" />
+
+        {/* Content Grid */}
+        <div className="grid lg:grid-cols-3 gap-12">
+          {/* Left */}
+          <div className="lg:col-span-2 space-y-12">
+            <div className="space-y-4">
+              <div className="h-7 w-48 rounded-lg bg-slate-200" />
+              <div className="space-y-2">
+                <div className="h-4 w-full rounded bg-slate-100" />
+                <div className="h-4 w-full rounded bg-slate-100" />
+                <div className="h-4 w-3/4 rounded bg-slate-100" />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="h-7 w-32 rounded-lg bg-slate-200" />
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="h-14 rounded-xl bg-slate-100" />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="rounded-3xl border border-slate-100 p-6 space-y-6">
+              <div className="space-y-2 pb-6 border-b border-slate-100">
+                <div className="h-4 w-20 rounded bg-slate-100" />
+                <div className="h-10 w-40 rounded-lg bg-slate-200" />
+              </div>
+              <div className="space-y-3 pb-6 border-b border-slate-100">
+                <div className="h-3 w-16 rounded bg-slate-100" />
+                <div className="flex items-center gap-3">
+                  <div className="h-12 w-12 rounded-full bg-slate-200" />
+                  <div className="space-y-1">
+                    <div className="h-4 w-28 rounded bg-slate-200" />
+                    <div className="h-3 w-20 rounded bg-slate-100" />
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-3 pt-2">
+                <div className="h-12 rounded-full bg-slate-200" />
+                <div className="h-12 rounded-full bg-slate-100" />
+                <div className="h-12 rounded-full bg-slate-100" />
+              </div>
+            </div>
+            <div className="h-20 rounded-2xl bg-slate-50 border border-slate-100" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Content
+const PropertyDetailContent = async ({ id }: { id: string }) => {
   const propertyData = await getPropertyDetail(id);
 
   return (
@@ -35,7 +118,7 @@ const PropertyDetailPage = async ({
           <PropertyActions />
         </div>
 
-        {/* Header Section */}
+        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">
@@ -54,41 +137,28 @@ const PropertyDetailPage = async ({
             <div className="flex items-center gap-2 mt-5 text-slate-500">
               <MapPin className="h-5 w-5 text-brand-600" />
               <p className="text-base">
-                {propertyData.address}, {propertyData.city},{" "}
-                {propertyData.state}
+                {propertyData.address}, {propertyData.city}, {propertyData.state}
               </p>
             </div>
           </div>
 
-          {/* Stats */}
           <div className="flex items-center gap-8 pb-2 border-t lg:border-t-0 lg:border-l border-slate-100 lg:pl-8 pt-6 lg:pt-0">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900">
-                {propertyData.bedrooms}
-              </span>
-              <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">
-                Bedrooms
-              </span>
+              <span className="text-2xl font-bold text-slate-900">{propertyData.bedrooms}</span>
+              <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Bedrooms</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900">
-                {propertyData.bathrooms}
-              </span>
-              <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">
-                Bathrooms
-              </span>
+              <span className="text-2xl font-bold text-slate-900">{propertyData.bathrooms}</span>
+              <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Bathrooms</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900">
-                {propertyData.area}
-              </span>
-              <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">
-                Sqft
-              </span>
+              <span className="text-2xl font-bold text-slate-900">{propertyData.area}</span>
+              <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Sqft</span>
             </div>
           </div>
         </div>
 
+        {/* Image */}
         <div className="grid gap-4 h-[450px] md:h-[600px] mb-16 rounded-3xl overflow-hidden">
           <div className="relative md:col-span-3 md:row-span-2 h-full rounded-3xl md:rounded-none overflow-hidden group">
             {propertyData.images?.[0] && (
@@ -103,33 +173,23 @@ const PropertyDetailPage = async ({
           </div>
         </div>
 
+        {/* Content */}
         <div className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-12">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">
-                About this property
-              </h2>
-              <p className="text-slate-600 leading-relaxed text-lg">
-                {propertyData.description}
-              </p>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">About this property</h2>
+              <p className="text-slate-600 leading-relaxed text-lg">{propertyData.description}</p>
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-6 tracking-tight">
-                Amenities
-              </h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6 tracking-tight">Amenities</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {propertyData.amenities?.map((amenity: string, i: number) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 transition-colors hover:bg-slate-50"
-                  >
+                  <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 transition-colors hover:bg-slate-50">
                     <div className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center">
                       <Check className="h-4 w-4 text-brand-600" />
                     </div>
-                    <span className="text-sm font-medium text-slate-700">
-                      {amenity}
-                    </span>
+                    <span className="text-sm font-medium text-slate-700">{amenity}</span>
                   </div>
                 ))}
               </div>
@@ -140,47 +200,33 @@ const PropertyDetailPage = async ({
             <div className="lg:sticky lg:top-28 space-y-6">
               <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6">
                 <div className="pb-6 border-b border-slate-100">
-                  <p className="text-sm text-slate-400 font-medium mb-1">
-                    Monthly Rent
-                  </p>
+                  <p className="text-sm text-slate-400 font-medium mb-1">Monthly Rent</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold text-slate-900">
-                      ৳{propertyData.rentAmount?.toLocaleString()}
-                    </span>
+                    <span className="text-4xl font-bold text-slate-900">৳{propertyData.rentAmount?.toLocaleString()}</span>
                     <span className="text-slate-400 font-medium">/month</span>
                   </div>
                 </div>
 
                 <div className="py-6 border-b border-slate-100">
-                  <p className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-3">
-                    Listed by
-                  </p>
+                  <p className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-3">Listed by</p>
                   <div className="flex items-center gap-3">
                     <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm shrink-0 bg-slate-100">
                       <Image
-                        src={
-                          propertyData.landlord?.avatar ||
-                          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/500px-Default_pfp.svg.png"
-                        }
+                        src={propertyData.landlord?.avatar || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/500px-Default_pfp.svg.png"}
                         alt={propertyData.landlord?.name || "Landlord"}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900">
-                        {propertyData.landlord?.name}
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        Verified Landlord
-                      </p>
+                      <p className="font-bold text-slate-900">{propertyData.landlord?.name}</p>
+                      <p className="text-xs text-slate-500">Verified Landlord</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-6 space-y-3">
                   <PropertyRentalRequestModal status={propertyData.status} id={propertyData.id} />
-
                   <button className="w-full h-12 rounded-full bg-white text-slate-900 text-sm font-semibold border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
                     <Mail className="h-4 w-4" /> Send Message
                   </button>
@@ -193,12 +239,9 @@ const PropertyDetailPage = async ({
               <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 flex items-start gap-3">
                 <ShieldCheck className="h-6 w-6 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-bold text-slate-900">
-                    Verified Listing
-                  </p>
+                  <p className="text-sm font-bold text-slate-900">Verified Listing</p>
                   <p className="text-xs text-slate-500 mt-1">
-                    RentNest has checked this property and landlord to ensure
-                    safety and authenticity.
+                    RentNest has checked this property and landlord to ensure safety and authenticity.
                   </p>
                 </div>
               </div>
@@ -207,6 +250,21 @@ const PropertyDetailPage = async ({
         </div>
       </div>
     </div>
+  );
+};
+
+
+const PropertyDetailPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+
+  return (
+    <Suspense fallback={<PropertyDetailSkeleton />}>
+      <PropertyDetailContent id={id} />
+    </Suspense>
   );
 };
 
