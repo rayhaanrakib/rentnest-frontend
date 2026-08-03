@@ -1,4 +1,11 @@
-import { FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon } from "@/components/icons/sharedIcon";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "@/components/icons/sharedIcon";
+import { IDashboardNavItem } from "@/types";
+import { CalendarDays, Cuboid, FileText, LayoutDashboard, User } from "lucide-react";
 
 export const navLinks = [
   { href: "/", label: "Home" },
@@ -9,8 +16,8 @@ export const navLinks = [
 
 export const authLinks = [
   { href: "/login", label: "Login" },
-  { href: "/register", label: "Register" }
-]
+  { href: "/register", label: "Register" },
+];
 
 export const footerLinks = [
   {
@@ -47,10 +54,66 @@ export const footerLinks = [
   },
 ];
 
-
 export const socialLinks = [
   { href: "#", label: "Facebook", Icon: FacebookIcon },
   { href: "#", label: "Twitter", Icon: TwitterIcon },
   { href: "#", label: "Instagram", Icon: InstagramIcon },
   { href: "#", label: "LinkedIn", Icon: LinkedinIcon },
 ];
+
+// dashboard links
+const TENANT_SIDEBAR_ITEMS: IDashboardNavItem[] = [
+  {
+    href: "/tenant/dashboard",
+    label: "Overview",
+    icon: LayoutDashboard,
+    exact: true,
+  },
+  {
+    href: "/tenant/dashboard/requests",
+    label: "My Requests",
+    icon: FileText,
+  },
+];
+const LANDLORD_SIDEBAR_ITEMS: IDashboardNavItem[] = [
+  {
+    href: "/landlord/dashboard",
+    label: "Overview",
+    icon: LayoutDashboard,
+    exact: true,
+  },
+  {
+    href: "/landlord/dashboard/properties",
+    label: "My Properties",
+    icon: FileText,
+  },
+  {
+    href: "/landlord/dashboard/rentals",
+    label: "My Rentals",
+    icon: CalendarDays,
+  }
+];
+const ADMIN_SIDEBAR_ITEMS: IDashboardNavItem[] = [
+  {
+    href: "/admin/dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    exact: true,
+  },
+  {
+    label: "Users",
+    href: "/admin/dashboard/users",
+    icon: User,
+  },
+  {
+    label: "Categories",
+    href: "/admin/dashboard/categories",
+    icon: Cuboid,
+  },
+];
+
+export const DashboardNavItems = {
+  TENANT: TENANT_SIDEBAR_ITEMS,
+  LANDLORD: LANDLORD_SIDEBAR_ITEMS,
+  ADMIN: ADMIN_SIDEBAR_ITEMS,
+};

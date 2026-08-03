@@ -8,21 +8,16 @@ import Image from "next/image";
 import { IProperty } from "@/types";
 
 const categoryImages: Record<string, string> = {
-  Apartment:
-    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
-  House:
-    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop",
-  Warehouse:
-    "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop",
-  "Office Space":
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
-  "Commercial Space":
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-  Hostel:
-    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
-  Default:
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
+  Apartment: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00",
+  House: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83",
+  Warehouse: "https://images.unsplash.com/photo-1644079446600-219068676743",
+  "Office Space": "https://images.unsplash.com/photo-1698653223247-09aaf01166fc",
+  "Commercial Space": "https://images.unsplash.com/photo-1722134395042-e7b9a6160906",
+  Hostel: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5",
+  Studio: "https://images.unsplash.com/photo-1554941829-202a0b2403b8",
+  Default: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
 };
+
 interface PropertiesSectionProps {
   properties: IProperty[];
 }
@@ -109,6 +104,7 @@ const HomepageFeaturedPropertiesSection = ({
                   src={imageSrc}
                   alt={property.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 1200px"
                   className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
                 />
 

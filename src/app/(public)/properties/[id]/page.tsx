@@ -1,19 +1,17 @@
+import { getPropertyDetail } from "@public/_actions/getData";
+import PropertyActions from "@public/_components/_properties/PropertyActions";
+import PropertyRentalRequestModal from "@public/_components/_properties/PropertyRentalRequestModal";
+
 import {
   ArrowLeft,
-  Bath,
-  BedDouble,
-  CalendarDays,
   Check,
   Mail,
   MapPin,
-  Maximize,
   Phone,
   ShieldCheck,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getPropertyDetail } from "@public/_actions/getData";
-import PropertyActions from "@public/_components/_properties/PropertyActions";
 
 const PropertyDetailPage = async ({
   params,
@@ -181,9 +179,8 @@ const PropertyDetailPage = async ({
                 </div>
 
                 <div className="pt-6 space-y-3">
-                  <button className="w-full h-12 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-all shadow-sm flex items-center justify-center gap-2">
-                    <CalendarDays className="h-4 w-4" /> Request a Tour
-                  </button>
+                  <PropertyRentalRequestModal status={propertyData.status} id={propertyData.id} />
+
                   <button className="w-full h-12 rounded-full bg-white text-slate-900 text-sm font-semibold border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
                     <Mail className="h-4 w-4" /> Send Message
                   </button>

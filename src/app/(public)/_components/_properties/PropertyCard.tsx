@@ -2,15 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Bath, BedDouble, MapPin, Maximize, ArrowUpRight } from "lucide-react";
 
-// Fallback images based on category
 const categoryImages: Record<string, string> = {
-  Apartment: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
-  House: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop",
-  Warehouse: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=800&h=600&fit=crop",
-  "Office Space": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
-  "Commercial Space": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-  Hostel: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
-  Default: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
+  Apartment: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00",
+  House: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83",
+  Warehouse: "https://images.unsplash.com/photo-1644079446600-219068676743",
+  "Office Space": "https://images.unsplash.com/photo-1698653223247-09aaf01166fc",
+  "Commercial Space": "https://images.unsplash.com/photo-1722134395042-e7b9a6160906",
+  Hostel: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5",
+  Studio: "https://images.unsplash.com/photo-1554941829-202a0b2403b8",
+  Default: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
 };
 
 const PropertyCard = ({ property }: { property: any }) => {
@@ -22,7 +22,7 @@ const PropertyCard = ({ property }: { property: any }) => {
       href={`/properties/${property.id}`}
       className="group relative h-[440px] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer bg-slate-200"
     >
-      {/* Image Background */}
+      {/* Image */}
       <Image
         src={imageSrc}
         alt={property.title}
@@ -31,10 +31,8 @@ const PropertyCard = ({ property }: { property: any }) => {
         className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
       />
 
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-      {/* Top Elements */}
       <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
         <div className="flex flex-col gap-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white text-xs font-medium tracking-wide shadow-sm">
@@ -48,7 +46,6 @@ const PropertyCard = ({ property }: { property: any }) => {
         </div>
       </div>
 
-      {/* Bottom Content */}
       <div className="absolute bottom-0 inset-x-0 p-6 z-10 text-white">
 
         {/* Location */}
@@ -70,7 +67,7 @@ const PropertyCard = ({ property }: { property: any }) => {
           </div>
         </div>
 
-        {/* Specs (Slide up on hover) */}
+        {/* Specs */}
         <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-out">
           <div className="overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center gap-5 pt-4 border-t border-white/20">

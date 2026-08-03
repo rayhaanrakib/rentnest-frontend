@@ -151,3 +151,14 @@ export const logoutAction = async () => {
   cookieStore.delete("refreshToken");
   return { success: true };
 };
+
+export const getAuthHeaders = async () => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+  if (!accessToken) return null;
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  };
+};

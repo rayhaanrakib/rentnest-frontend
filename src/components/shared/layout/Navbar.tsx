@@ -148,7 +148,7 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav className={cn("flex h-16 items-center justify-between transition-all duration-300", isScrolled ? "rounded-2xl border border-border/60 bg-background/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] px-4 sm:px-6" : "rounded-2xl border border-transparent bg-transparent px-4 sm:px-6")}>
           <Link href="/" className="inline-flex items-center gap-2.5 cursor-pointer">
-            <SiteIcon className="h-4 w-auto" />
+            <SiteIcon className="h-5 w-auto" />
           </Link>
 
           <div className="hidden lg:flex items-center gap-2 p-1 rounded-full bg-muted/30">
