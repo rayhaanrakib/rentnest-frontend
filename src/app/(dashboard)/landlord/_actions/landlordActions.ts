@@ -191,7 +191,6 @@ export const togglePropertyStatus = async (
     },
   );
   const result = await res.json();
-  console.log(result)
 
   if (result.success) {
     revalidateTag("landlord-properties", {
@@ -292,7 +291,6 @@ export const updateRentalStatus = async (
     },
   );
   const result = await res.json();
-  console.log(result)
 
   if (result.success) {
     revalidateTag("landlord-rentals", {

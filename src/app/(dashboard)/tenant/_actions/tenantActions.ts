@@ -69,7 +69,6 @@ export const postTenantRentalRequest = async (
         errorDetails: "Authentication required. Please log in.",
       };
     }
-    console.log(parsed.data);
     const res = await fetch(`${process.env.BACKEND_API_URL}/rentals`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
