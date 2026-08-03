@@ -4,15 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Home, Search, ArrowRight } from "lucide-react";
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <main className="relative min-h-screen bg-foreground text-white overflow-hidden flex items-center justify-center p-4">
 
-      {/* Background Textures & Glows */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none" />
 
-      {/* Giant Background 404 Text */}
       <motion.h1
         initial={{ opacity: 0, scale: 1.1 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -22,7 +20,6 @@ export default function NotFound() {
         404
       </motion.h1>
 
-      {/* Main Content */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -69,3 +66,4 @@ export default function NotFound() {
     </main>
   );
 }
+export default NotFound;
