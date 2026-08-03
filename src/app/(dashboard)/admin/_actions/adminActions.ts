@@ -43,9 +43,8 @@ export const getAdminUsersData = async () => {
   }
   const res = await fetch(`${process.env.BACKEND_API_URL}/admin/users/all`, {
     headers,
-    cache: "force-cache",
+    cache: "no-cache",
     next: {
-      revalidate: 60 * 60 * 24,
       tags: ["admin-users-data"],
     },
   });
@@ -68,7 +67,10 @@ export const getAdminUsersByFilter = async (role?: string, status?: string) => {
     `${process.env.BACKEND_API_URL}/admin/users?${params.toString()}`,
     {
       headers,
-      cache: "no-store",
+      cache: "no-cache",
+      next: {
+        tags: ["admin-users-data"],
+      },
     }
   );
   const result = await res.json();
@@ -115,7 +117,9 @@ export const updateUserStatus = async (
   const result = await res.json();
 
   if (result.success) {
-    revalidateTag("admin-users-data", userId);
+    revalidateTag("admin-categories-data", {
+      expire: 0
+    });
   }
   return result;
 };
