@@ -1,4 +1,5 @@
-import { JSX } from "react/jsx-runtime";
+import { LucideProps } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 // ============ Auth Types ============
 export type IUserRole = "TENANT" | "LANDLORD" | "ADMIN";
@@ -30,7 +31,6 @@ export interface IAuthState {
 
 // ============ Category Types ============
 export interface ICategory {
-  map(arg0: (category: ICategory) => JSX.Element): import("react").ReactNode;
   id: string;
   name: string;
   description?: string;
@@ -38,9 +38,14 @@ export interface ICategory {
     properties: number;
   };
 }
+export interface ICategorySelect {
+  id: string;
+  name: string;
+}
 
 // ============ Property Types ============
 export type IPropertyStatus = "AVAILABLE" | "UNAVAILABLE" | "RENTED";
+export type ITogglePropertyStatus = "AVAILABLE" | "UNAVAILABLE";
 
 export interface IProperty {
   id: string;
@@ -106,6 +111,41 @@ export interface IPaginatedProperties {
   properties: IProperty[];
 }
 
+export interface IPropertyCreateFormData {
+  title: string;
+  description: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  rentAmount: number;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  categoryId: string;
+  amenities: string[];
+  images: string[];
+}
+
+export interface IPropertyFormData {
+  title: string;
+  description: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  rentAmount: number;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  amenities: string[];
+  images: string[];
+  categoryId: string;
+  status: IPropertyStatus;
+}
+
 // ============ Rental Types ============
 export type IRentalStatus =
   | "PENDING"
@@ -113,6 +153,8 @@ export type IRentalStatus =
   | "REJECTED"
   | "ACTIVE"
   | "COMPLETED";
+
+export type IUpdateRentalStatus = "APPROVED" | "REJECTED";
 
 export interface IRentalRequest {
   id: string;
@@ -127,6 +169,13 @@ export interface IRentalRequest {
   property?: IProperty;
   tenant?: IUser;
   payment?: IPayment;
+}
+
+export interface IPostRentalRequest {
+  propertyId: string;
+  moveInDate: Date | string;
+  duration: number;
+  message?: string;
 }
 
 export interface ILandlordRequestsResponse {
@@ -215,23 +264,6 @@ export interface ILoginFormData {
   password: string;
 }
 
-export interface IPropertyFormData {
-  title: string;
-  description: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  country: string;
-  rentAmount: number;
-  bedrooms: number;
-  bathrooms: number;
-  area: number;
-  categoryId: string;
-  amenities: string[];
-  images: string[];
-}
-
 export interface IRentalRequestFormData {
   propertyId: string;
   moveInDate: string;
@@ -244,3 +276,12 @@ export interface IReviewFormData {
   rating: number;
   comment: string;
 }
+
+export type IDashboardNavItem = {
+  label: string;
+  href: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+  exact?: boolean;
+};
