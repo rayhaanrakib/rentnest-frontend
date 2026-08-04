@@ -87,7 +87,7 @@ export const getAdminUserDetail = async (userId: string) => {
     `${process.env.BACKEND_API_URL}/admin/users/${userId}`,
     {
       headers,
-      cache: "no-store",
+      cache: "no-cache",
     }
   );
   const result = await res.json();

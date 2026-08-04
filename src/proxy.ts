@@ -7,7 +7,7 @@ import { jwtUtils } from "./utils/jwt";
 
 const AUTH_ROUTES = ["/login", "/register"];
 const PAYMENT_ROUTES = ["/payment", "/payment/success", "/payment/cancel"];
-const PUBLIC_ROUTES = ["/", "/properties", "/categories","/login", "/register"];
+const PUBLIC_ROUTES = ["/", "/about", "/properties", "/categories","/login", "/register"];
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;

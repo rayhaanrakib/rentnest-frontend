@@ -173,6 +173,7 @@ export interface IRentalRequest {
   property?: IProperty;
   tenant?: IUser;
   payment?: IPayment;
+  review?: IReview;
 }
 
 export interface IPostRentalRequest {
@@ -225,6 +226,11 @@ export interface IReview {
   updatedAt: string;
   tenant?: IUser;
   property?: IProperty;
+}
+export interface IReviewState {
+  success: boolean;
+  errorMessage?: string;
+  errorDetails?: string;
 }
 
 // ============ Admin Types ============
