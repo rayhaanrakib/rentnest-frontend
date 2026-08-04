@@ -32,10 +32,10 @@ const PaymentSuccessPage = () => {
         </div>
 
         <Link
-          href="/tenant/dashboard"
+          href="/tenant/dashboard/payments"
           className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(15,23,42,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800"
         >
-          Go to Dashboard
+          Go to Payments
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </Link>
       </div>

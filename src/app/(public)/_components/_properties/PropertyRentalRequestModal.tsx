@@ -5,7 +5,7 @@ import { IPropertyStatus } from "@/types";
 import { postTenantRentalRequest } from "@dashboard/tenant/_actions/tenantActions";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarDays, CheckCircle2, Loader2, X } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,6 +16,7 @@ const PropertyRentalRequestModal = ({
   id: string;
   status: IPropertyStatus;
 }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const initialState: RentalRequestState = { success: false };
 
@@ -30,7 +31,7 @@ const PropertyRentalRequestModal = ({
     if (state.success) {
       toast.success("Rental request submitted successfully!");
       setIsOpen(false);
-      redirect("/tenant/dashboard/requests", "replace");
+      router.replace("/tenant/dashboard/requests");
     }
 
     if (state.errorMessage) {
@@ -38,7 +39,7 @@ const PropertyRentalRequestModal = ({
         description: state.errorDetails,
       });
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>

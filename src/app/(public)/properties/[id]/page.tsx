@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getCurrentUser } from "@auth/_actions/authActions";
 
 // Skeleton
 const PropertyDetailSkeleton = () => {
@@ -166,6 +167,7 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
                 src={propertyData.images[0]}
                 alt={propertyData.title}
                 fill
+                sizes="w-100vw"
                 priority
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -260,7 +262,7 @@ const PropertyDetailPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-
+  const user = await getCurrentUser();
   return (
     <Suspense fallback={<PropertyDetailSkeleton />}>
       <PropertyDetailContent id={id} />

@@ -11,20 +11,17 @@ export const getCategories = async () => {
 };
 
 export const getAllProperties = async () => {
-  const res = await fetch(`${process.env.BACKEND_API_URL}/properties/all`,
-    {
-      cache: "force-cache",
-      next: {
-        revalidate: 60 * 60 * 24,
-        tags: ["all-properties"],
+  const res = await fetch(`${process.env.BACKEND_API_URL}/properties/all`, {
+    next: {
+        tags: ["public-properties"],
+        revalidate: 300,
       },
-    }
-  );
+  });
   const result = await res.json();
   return result.data;
 };
 export const getProperties = async (
-  query: Record<string, string | string[] | undefined>
+  query: Record<string, string | string[] | undefined>,
 ) => {
   const params = new URLSearchParams();
 
@@ -55,12 +52,10 @@ export const getProperties = async (
   const res = await fetch(
     `${process.env.BACKEND_API_URL}/properties?${params.toString()}`,
     {
-      cache: "force-cache",
       next: {
-        revalidate: 60 * 60 * 24,
-        tags: ["properties"],
+        tags: ["public-properties"],
       },
-    }
+    },
   );
 
   const result = await res.json();
@@ -69,10 +64,9 @@ export const getProperties = async (
 
 export const getPropertyDetail = async (id: string) => {
   const res = await fetch(`${process.env.BACKEND_API_URL}/properties/${id}`, {
-    cache: "force-cache",
     next: {
-      revalidate: 60 * 60 * 24,
-      tags: ["property-detail"],
+      revalidate: 3600,
+      tags: [`property-${id}`],
     },
   });
   const result = await res.json();
