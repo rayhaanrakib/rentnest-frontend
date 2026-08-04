@@ -214,9 +214,8 @@ export const getLandlordProperties = async () => {
     `${process.env.BACKEND_API_URL}/properties/my-property`,
     {
       headers,
-      cache: "force-cache",
+      cache: "no-cache",
       next: {
-        revalidate: 60 * 60 * 24,
         tags: ["landlord-properties"],
       },
     },
@@ -238,9 +237,8 @@ export const getLandlordRentals = async()=>{
       `${process.env.BACKEND_API_URL}/rentals/landlord/requests/all`,
       {
         headers,
-        cache: "force-cache",
+        cache: "no-cache",
         next: {
-          revalidate: 60 * 60 * 24,
           tags: ["landlord-rentals"],
         },
       },
@@ -258,9 +256,8 @@ export const getLandlordRentalDetail = async (requestId: string) => {
     `${process.env.BACKEND_API_URL}/rentals/landlord/requests/${requestId}`,
     {
       headers,
-      cache: "force-cache",
+      cache: "no-cache",
       next: {
-        revalidate: 60 * 60 * 24,
         tags: ["landlord-rentals-detail"],
       },
     },
@@ -300,3 +297,4 @@ export const updateRentalStatus = async (
 
   return result;
 }
+

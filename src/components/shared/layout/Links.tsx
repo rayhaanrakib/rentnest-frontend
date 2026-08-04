@@ -79,6 +79,11 @@ const TENANT_SIDEBAR_ITEMS: IDashboardNavItem[] = [
     label: "Payments",
     icon: FileText,
   },
+  {
+    href: "/tenant/dashboard/reviews",
+    label: "Reviews",
+    icon: FileText,
+  },
 ];
 const LANDLORD_SIDEBAR_ITEMS: IDashboardNavItem[] = [
   {
@@ -96,6 +101,11 @@ const LANDLORD_SIDEBAR_ITEMS: IDashboardNavItem[] = [
     href: "/landlord/dashboard/rentals",
     label: "Rentals",
     icon: CalendarDays,
+  },
+  {
+    href: "/landlord/dashboard/payments",
+    label: "Payments",
+    icon: FileText,
   }
 ];
 const ADMIN_SIDEBAR_ITEMS: IDashboardNavItem[] = [
