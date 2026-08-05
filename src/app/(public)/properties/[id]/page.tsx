@@ -1,7 +1,8 @@
 import { Suspense } from "react";
-import { getPropertyDetail } from "@public/_actions/getData";
+import { getPropertyDetail, getProperties } from "@public/_actions/getData";
 import PropertyActions from "@public/_components/_properties/PropertyActions";
 import PropertyRentalRequestModal from "@public/_components/_properties/PropertyRentalRequestModal";
+import PropertyCard from "@public/_components/_properties/PropertyCard";
 import GoogleMapComponent from "@/components/shared/GoogleMap";
 import {
   ArrowLeft,
@@ -13,6 +14,9 @@ import {
   Bed,
   Bath,
   Maximize,
+  Building2,
+  CalendarDays,
+  Tag,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,29 +33,46 @@ const PropertyDetailSkeleton = () => {
             <div className="h-14 w-full max-w-lg rounded-xl bg-slate-200" />
             <div className="h-5 w-72 rounded bg-slate-100" />
           </div>
-          <div className="flex gap-8">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="space-y-1">
-                <div className="h-7 w-8 rounded bg-slate-200" />
-                <div className="h-3 w-16 rounded bg-slate-100" />
-              </div>
-            ))}
-          </div>
         </div>
-        {/* Gallery Skeleton */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[450px] md:h-[550px] mb-16 rounded-3xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[450px] md:h-[550px] mb-8 rounded-3xl overflow-hidden">
           <div className="md:col-span-2 md:row-span-2 h-full bg-slate-100 rounded-3xl" />
           <div className="hidden md:block h-full bg-slate-100 rounded-3xl" />
           <div className="hidden md:block h-full bg-slate-100 rounded-3xl" />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          {[...Array(4)].map((_, i) => <div key={i} className="h-24 rounded-2xl bg-slate-100" />)}
         </div>
       </div>
     </div>
   );
 };
 
+// Helper component for the new detail cards
+const DetailCard = ({ icon: Icon, label, value }: { icon: any, label: string, value: string }) => (
+  <div className="p-5 bg-white border border-slate-100 rounded-2xl shadow-sm flex items-start gap-4">
+    <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center shrink-0">
+      <Icon className="h-5 w-5 text-slate-500" />
+    </div>
+    <div className="min-w-0">
+      <p className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-1">{label}</p>
+      <p className="text-sm font-bold text-slate-800 truncate">{value}</p>
+    </div>
+  </div>
+);
+
 // Content
 const PropertyDetailContent = async ({ id }: { id: string }) => {
   const propertyData = await getPropertyDetail(id);
+
+  // Fetch similar properties (limit to 3 as a STRING, since getProperties expects strings)
+  let similarProperties: any[] = [];
+  try {
+    const similarRes = await getProperties({ limit: "3", page: "1" });
+    // Filter out the current property just in case it appears in the list
+    similarProperties = (similarRes?.properties || []).filter((p: any) => p.id !== id).slice(0, 3);
+  } catch (error) {
+    console.error("Failed to load similar properties", error);
+  }
 
   return (
     <div className="bg-white min-h-screen pt-32 pb-32">
@@ -113,7 +134,7 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
         </div>
 
         {/* Modern Image Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[450px] md:h-[550px] mb-16 rounded-3xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[450px] md:h-[550px] mb-8 rounded-3xl overflow-hidden">
           <div className="relative md:col-span-2 md:row-span-2 h-full rounded-3xl md:rounded-none overflow-hidden group">
             {propertyData.images?.[0] && (
               <Image
@@ -150,8 +171,16 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
           </div>
         </div>
 
+        {/* Property Detail Cards (New Section) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          <DetailCard icon={Tag} label="Category" value={propertyData.category?.name || "Uncategorized"} />
+          <DetailCard icon={MapPin} label="Location" value={`${propertyData.city}, ${propertyData.state}`} />
+          <DetailCard icon={Maximize} label="Area (Sqft)" value={String(propertyData.area)} />
+          <DetailCard icon={CalendarDays} label="Listed On" value={new Date(propertyData.createdAt).toLocaleDateString()} />
+        </div>
+
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid lg:grid-cols-3 gap-12 mb-24">
           {/* Left Content */}
           <div className="lg:col-span-2 space-y-12">
             {/* Description */}
@@ -239,6 +268,26 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
             </div>
           </div>
         </div>
+
+        {/* Similar Properties Section */}
+        {similarProperties.length > 0 && (
+          <div className="border-t border-slate-100 pt-16">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                Explore Other Properties
+              </h2>
+              <Link href={`/properties`} className="text-sm font-medium text-brand-600 hover:underline hidden md:block">
+                View All
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {similarProperties.map((property: any) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
