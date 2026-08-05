@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getPropertyDetail } from "@public/_actions/getData";
 import PropertyActions from "@public/_components/_properties/PropertyActions";
 import PropertyRentalRequestModal from "@public/_components/_properties/PropertyRentalRequestModal";
+import GoogleMapComponent from "@/components/shared/GoogleMap";
 import {
   ArrowLeft,
   Check,
@@ -9,29 +10,22 @@ import {
   MapPin,
   Phone,
   ShieldCheck,
+  Bed,
+  Bath,
+  Maximize,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser } from "@auth/_actions/authActions";
 
-// Skeleton
+// Skeleton (Updated to match new layout)
 const PropertyDetailSkeleton = () => {
   return (
     <div className="bg-white min-h-screen pt-32 pb-32 animate-pulse">
       <div className="container mx-auto px-4 md:px-8">
-        {/* Back + Actions */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="h-5 w-36 rounded bg-slate-200" />
-          <div className="h-9 w-9 rounded-xl bg-slate-100" />
-        </div>
-
-        {/* Header */}
+        <div className="h-5 w-36 rounded bg-slate-200 mb-8" />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
           <div className="max-w-3xl space-y-4">
-            <div className="flex gap-2">
-              <div className="h-6 w-24 rounded-full bg-slate-200" />
-              <div className="h-6 w-20 rounded-full bg-slate-100" />
-            </div>
             <div className="h-14 w-full max-w-lg rounded-xl bg-slate-200" />
             <div className="h-5 w-72 rounded bg-slate-100" />
           </div>
@@ -44,57 +38,11 @@ const PropertyDetailSkeleton = () => {
             ))}
           </div>
         </div>
-
-        {/* Image */}
-        <div className="h-[450px] md:h-[600px] rounded-3xl bg-slate-100 mb-16" />
-
-        {/* Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Left */}
-          <div className="lg:col-span-2 space-y-12">
-            <div className="space-y-4">
-              <div className="h-7 w-48 rounded-lg bg-slate-200" />
-              <div className="space-y-2">
-                <div className="h-4 w-full rounded bg-slate-100" />
-                <div className="h-4 w-full rounded bg-slate-100" />
-                <div className="h-4 w-3/4 rounded bg-slate-100" />
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="h-7 w-32 rounded-lg bg-slate-200" />
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-14 rounded-xl bg-slate-100" />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            <div className="rounded-3xl border border-slate-100 p-6 space-y-6">
-              <div className="space-y-2 pb-6 border-b border-slate-100">
-                <div className="h-4 w-20 rounded bg-slate-100" />
-                <div className="h-10 w-40 rounded-lg bg-slate-200" />
-              </div>
-              <div className="space-y-3 pb-6 border-b border-slate-100">
-                <div className="h-3 w-16 rounded bg-slate-100" />
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-slate-200" />
-                  <div className="space-y-1">
-                    <div className="h-4 w-28 rounded bg-slate-200" />
-                    <div className="h-3 w-20 rounded bg-slate-100" />
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-3 pt-2">
-                <div className="h-12 rounded-full bg-slate-200" />
-                <div className="h-12 rounded-full bg-slate-100" />
-                <div className="h-12 rounded-full bg-slate-100" />
-              </div>
-            </div>
-            <div className="h-20 rounded-2xl bg-slate-50 border border-slate-100" />
-          </div>
+        {/* Gallery Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[450px] md:h-[550px] mb-16 rounded-3xl overflow-hidden">
+          <div className="md:col-span-2 md:row-span-2 h-full bg-slate-100 rounded-3xl" />
+          <div className="hidden md:block h-full bg-slate-100 rounded-3xl" />
+          <div className="hidden md:block h-full bg-slate-100 rounded-3xl" />
         </div>
       </div>
     </div>
@@ -108,6 +56,7 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
   return (
     <div className="bg-white min-h-screen pt-32 pb-32">
       <div className="container mx-auto px-4 md:px-8">
+        {/* Breadcrumb */}
         <div className="flex items-center justify-between mb-8">
           <Link
             href="/properties"
@@ -143,25 +92,29 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
             </div>
           </div>
 
+          {/* Stats Bar */}
           <div className="flex items-center gap-8 pb-2 border-t lg:border-t-0 lg:border-l border-slate-100 lg:pl-8 pt-6 lg:pt-0">
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900">{propertyData.bedrooms}</span>
+            <div className="flex flex-col items-center gap-1">
+              <Bed className="h-6 w-6 text-slate-400 mb-1" />
+              <span className="text-xl font-bold text-slate-900">{propertyData.bedrooms}</span>
               <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Bedrooms</span>
             </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900">{propertyData.bathrooms}</span>
+            <div className="flex flex-col items-center gap-1">
+              <Bath className="h-6 w-6 text-slate-400 mb-1" />
+              <span className="text-xl font-bold text-slate-900">{propertyData.bathrooms}</span>
               <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Bathrooms</span>
             </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900">{propertyData.area}</span>
+            <div className="flex flex-col items-center gap-1">
+              <Maximize className="h-6 w-6 text-slate-400 mb-1" />
+              <span className="text-xl font-bold text-slate-900">{propertyData.area}</span>
               <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Sqft</span>
             </div>
           </div>
         </div>
 
-        {/* Image */}
-        <div className="grid gap-4 h-[450px] md:h-[600px] mb-16 rounded-3xl overflow-hidden">
-          <div className="relative md:col-span-3 md:row-span-2 h-full rounded-3xl md:rounded-none overflow-hidden group">
+        {/* Modern Image Gallery */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[450px] md:h-[550px] mb-16 rounded-3xl overflow-hidden">
+          <div className="relative md:col-span-2 md:row-span-2 h-full rounded-3xl md:rounded-none overflow-hidden group">
             {propertyData.images?.[0] && (
               <Image
                 src={propertyData.images[0]}
@@ -173,22 +126,47 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
               />
             )}
           </div>
+          <div className="hidden md:block relative h-full overflow-hidden group">
+            {propertyData.images?.[1] && (
+              <Image
+                src={propertyData.images[1]}
+                alt={`${propertyData.title} - Image 2`}
+                fill
+                sizes="33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            )}
+          </div>
+          <div className="hidden md:block relative h-full overflow-hidden group">
+            {propertyData.images?.[2] && (
+              <Image
+                src={propertyData.images[2]}
+                alt={`${propertyData.title} - Image 3`}
+                fill
+                sizes="33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            )}
+          </div>
         </div>
 
-        {/* Content */}
+        {/* Content Grid */}
         <div className="grid lg:grid-cols-3 gap-12">
+          {/* Left Content */}
           <div className="lg:col-span-2 space-y-12">
+            {/* Description */}
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight">About this property</h2>
-              <p className="text-slate-600 leading-relaxed text-lg">{propertyData.description}</p>
+              <p className="text-slate-600 leading-relaxed text-lg whitespace-pre-line">{propertyData.description}</p>
             </div>
 
+            {/* Amenities */}
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-6 tracking-tight">Amenities</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {propertyData.amenities?.map((amenity: string, i: number) => (
-                  <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 transition-colors hover:bg-slate-50">
-                    <div className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center">
+                  <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100 transition-colors hover:bg-white hover:shadow-sm">
+                    <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center">
                       <Check className="h-4 w-4 text-brand-600" />
                     </div>
                     <span className="text-sm font-medium text-slate-700">{amenity}</span>
@@ -196,8 +174,19 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
                 ))}
               </div>
             </div>
+
+            {/* Google Map Section */}
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6 tracking-tight">Location</h2>
+              <GoogleMapComponent
+                address={propertyData.address}
+                city={propertyData.city}
+                state={propertyData.state}
+              />
+            </div>
           </div>
 
+          {/* Right Sidebar (Booking Card) */}
           <div className="lg:col-span-1">
             <div className="lg:sticky lg:top-28 space-y-6">
               <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6">
@@ -254,7 +243,6 @@ const PropertyDetailContent = async ({ id }: { id: string }) => {
     </div>
   );
 };
-
 
 const PropertyDetailPage = async ({
   params,
