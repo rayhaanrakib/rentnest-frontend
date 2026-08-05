@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { MapPin, AlertCircle } from "lucide-react";
 import {
   useJsApiLoader,
@@ -10,9 +11,13 @@ import {
 
 const GOOGLE_MAPS_API_KEY =
   process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
+
 const HAS_MAPS_ENABLED =
   Boolean(GOOGLE_MAPS_API_KEY) &&
   GOOGLE_MAPS_API_KEY !== "your-google-maps-api-key";
+
+const FALLBACK_MAP_IMAGE =
+  "https://i.ibb.co.com/6JRH1Jhz/Dhaka-Map-thumb-1200x630.jpg";
 
 const mapContainerStyle = {
   width: "100%",
@@ -26,15 +31,19 @@ const mapOptions = {
   styles: [
     { featureType: "poi", stylers: [{ visibility: "off" }] },
     { featureType: "transit", stylers: [{ visibility: "off" }] },
-    // Make text darker (slate-700) for better contrast
     { elementType: "labels.text.fill", stylers: [{ color: "#334155" }] },
-    // Add a white outline to text so it pops off the light backgrounds
-    { elementType: "labels.text.stroke", stylers: [{ color: "#ffffff", weight: 2 }] },
+    {
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#ffffff", weight: 2 }],
+    },
     { featureType: "water", stylers: [{ color: "#e0f2fe" }] },
     { featureType: "road", stylers: [{ color: "#ffffff" }] },
     { featureType: "landscape", stylers: [{ color: "#f8fafc" }] },
-    // Make administrative labels slightly darker
-    { featureType: "administrative", elementType: "labels.text.fill", stylers: [{ color: "#1e293b" }] },
+    {
+      featureType: "administrative",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#1e293b" }],
+    },
   ],
 };
 
@@ -50,29 +59,42 @@ function MapUnavailableFallback({
   reason?: string;
 }) {
   return (
-    <div className="w-full h-[400px] rounded-3xl overflow-hidden border border-slate-200 shadow-sm bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col items-center justify-center px-6 text-center gap-3">
-      <div className="relative">
-        <div className="absolute inset-0 rounded-full bg-brand-100 blur-xl opacity-60"></div>
-        <div className="relative h-14 w-14 rounded-2xl border border-brand-100 bg-white shadow-sm flex items-center justify-center">
-          <MapPin className="h-7 w-7 text-brand-600" />
+    <div className="relative w-full h-[400px] overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
+      <Image
+        src={FALLBACK_MAP_IMAGE}
+        alt="Map unavailable"
+        fill
+        className="object-cover"
+        unoptimized
+        priority
+      />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+        <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/30 bg-white/15 backdrop-blur-md">
+          <MapPin className="h-8 w-8 text-white" />
         </div>
-      </div>
-      <div className="space-y-1">
-        <p className="text-base font-bold text-slate-900">Location</p>
-        <p className="text-sm text-slate-600 leading-relaxed">
+
+        <h3 className="text-xl font-bold text-white">
+          Property Location
+        </h3>
+
+        <p className="mt-2 max-w-md text-sm leading-relaxed text-white/90">
           {address}
           <br />
           {city}, {state}
         </p>
-      </div>
-      {reason && (
-        <div className="flex items-center gap-1.5 mt-2 text-[11px] text-white bg-slate-900 border border-slate-200 px-2.5 py-1 rounded-full">
-          <AlertCircle className="h-3 w-3" />
-          <span className="uppercase tracking-wide font-medium">
+
+        {reason && (
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm">
+            <AlertCircle className="h-4 w-4" />
             {reason}
-          </span>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -98,26 +120,30 @@ const GoogleMapComponent = ({
     lat: number;
     lng: number;
   } | null>(null);
-  const [geocodeFailedReason, setGeocodeFailedReason] = useState<
-    string | null
-  >(null);
+
+  const [geocodeFailedReason, setGeocodeFailedReason] =
+    useState<string | null>(null);
 
   useEffect(() => {
     if (skipLoad) return;
     if (!isLoaded || !window.google) return;
 
     let cancelled = false;
+
     const geocoder = new window.google.maps.Geocoder();
     const fullAddress = `${address}, ${city}, ${state}`;
 
     geocoder.geocode({ address: fullAddress }, (results, status) => {
       if (cancelled) return;
+
       if (status === "OK" && results && results[0]) {
         const location = results[0].geometry.location;
+
         setMarkerPosition({
           lat: location.lat(),
           lng: location.lng(),
         });
+
         setGeocodeFailedReason(null);
       } else {
         if (process.env.NODE_ENV === "development") {
@@ -125,12 +151,14 @@ const GoogleMapComponent = ({
             `[GoogleMap] Geocode failed: ${status}. Enable Geocoding API in GCP or provide a valid key.`,
           );
         }
+
         const reason =
           status === "REQUEST_DENIED"
             ? "Map API not configured"
             : status === "ZERO_RESULTS"
               ? "Address not found"
               : "Map unavailable";
+
         setGeocodeFailedReason(reason);
       }
     });
@@ -164,7 +192,7 @@ const GoogleMapComponent = ({
 
   if (!isLoaded) {
     return (
-      <div className="w-full h-[400px] rounded-3xl bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-medium">
+      <div className="flex h-[400px] w-full items-center justify-center rounded-3xl bg-slate-100 text-sm font-medium text-slate-500">
         Loading Map...
       </div>
     );
@@ -182,7 +210,7 @@ const GoogleMapComponent = ({
   }
 
   return (
-    <div className="w-full h-[400px] rounded-3xl overflow-hidden border border-slate-200 shadow-sm relative">
+    <div className="relative h-[400px] w-full overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
       {markerPosition ? (
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
@@ -193,7 +221,7 @@ const GoogleMapComponent = ({
           <Marker position={markerPosition} />
         </GoogleMap>
       ) : (
-        <div className="w-full h-full flex items-center justify-center text-slate-500 text-sm font-medium">
+        <div className="flex h-full w-full items-center justify-center text-sm font-medium text-slate-500">
           Locating property...
         </div>
       )}
